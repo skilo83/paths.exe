@@ -1,7 +1,7 @@
 /*
  *  Created on: Mar 29, 2020
  *      Author: github.com/skilo83
- *      Version: 1.0
+ *      Version: 1.1
  */
 
 
@@ -9,7 +9,6 @@
 #include <userenv.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 #define MAXPATH 900
 #define DEFAULT_FONT_COLOR 7
@@ -27,6 +26,7 @@ int main(void){
 
 	hFind = FindFirstFileA("*", &lpFindFileData);
 	do{
+		SetConsoleTextAttribute(hConsole, 11);
 		fResult = FindNextFileA(hFind, &lpFindFileData);
 		GetFullPathNameA(lpFindFileData.cFileName, sizeof(pathBuf), pathBuf, NULL);
 
@@ -39,11 +39,11 @@ int main(void){
 		}
 
 		ZeroMemory(pathBuf, sizeof(pathBuf));
-		SetConsoleTextAttribute(hConsole, 11);
 
 	} while (fResult != 0);
 
 	SetConsoleTextAttribute(hConsole, DEFAULT_FONT_COLOR);
+	CloseHandle(hConsole);
 	FindClose(hFind);
 	return 0;
 }
