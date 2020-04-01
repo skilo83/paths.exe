@@ -1,7 +1,7 @@
 /*
- *  Created on: Mar 29, 2020
+ *  Created on: Mar 31, 2020
  *      Author: github.com/skilo83
- *      Version: 1.1
+ *      Version: 1.2
  */
 
 
@@ -29,6 +29,10 @@ int main(void){
 		SetConsoleTextAttribute(hConsole, 11);
 		fResult = FindNextFileA(hFind, &lpFindFileData);
 		GetFullPathNameA(lpFindFileData.cFileName, sizeof(pathBuf), pathBuf, NULL);
+		
+		if ((lpFindFileData.dwFileAttributes) & (FILE_ATTRIBUTE_DIRECTORY == 16)){
+			SetConsoleTextAttribute(hConsole, 12);
+		}
 
 		if (lpFindFileData.dwFileAttributes == FILE_ATTRIBUTE_DIRECTORY){
 			SetConsoleTextAttribute(hConsole, 12);
